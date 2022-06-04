@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="item">
+        <div class="item-header-container">
+            <div class="item-thumb-container">
+                <img
+                    *ngIf="item.IconHD"
+                    class="item-thumbnail"
+                    src="https://xivapi.com/{{ item.IconHD }}"
+                    alt="thumbnail"
+                />
+                <img *ngIf="!item.IconHD"
+                    class="item-thumbnail"
+                    src="https://xivapi.com/{{ item.Icon }}"
+                    alt="thumbnail"
+                />
+            </div>
+            <div class="item-text-container">
+                <p class="item-name">{{ item.Name }}</p>
+                <div class="item-information">
+                    <div class="item-categories">
+                        <p class="item-categories-content" *ngIf="item.LevelEquip">{{item.LevelEquip}}</p>
+                        <p class="item-categories-content" *ngIf="item.LevelItem">{{item.LevelItem}}</p>
+                        <p class="item-categories-content" *ngIf="item.ClassJobCategory">{{item.ClassJobCategory.Name}}</p>
+                        <p class="item-categories-content" *ngIf="item.AchievementCategory">{{item.AchievementCategory.Name}}</p>
+                    </div>
+                    <p class="item-description" *ngIf="item.Description">{{item.Description}}</p>
+                </div>
+                <div class="item-stats-container" *ngIf="item.Stats">
+                    <p class="item-stats-content" *ngIf="item.Stats.Vitality">Vitality +{{item.Stats.Vitality.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Strength">Strength +{{item.Stats.Strength.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Dexterity">Dexterity +{{item.Stats.Dexterity.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Intelligence">Intelligence +{{item.Stats.Intelligence.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Mind">Mind +{{item.Stats.Mind.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.CriticalHit">Critical Hit +{{item.Stats.CriticalHit.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.DirectHitRate">Direct Hit Rate +{{item.Stats.DirectHitRate.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Determination">Determination +{{item.Stats.Determination.NQ}}</p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Tenacity">Tenacity +{{item.Stats.Tenacity.NQ}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="search-container">
+    <form class="search-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <span class="logo" routerLink="/">FFXIV DB</span>
+        <input
+            class="search-input"
+            name="search"
+            ngModel
+            placeholder="Search 30,000+ Items"
+        />
+        <mat-select 
+            class="search-select" 
+            name="category" 
+            placeholder="Category"
+            ngModel
+        >
+            <mat-option class="search-select-option" *ngFor="let category of searchCategory" [value]="category.searchString">{{ category.name }}</mat-option>
+        </mat-select>
+        <button class="search-button">Search</button>
+    </form>
+    <div class="search-menu">
+        <button class="search-menu-button" type="button" [matMenuTriggerFor]="itemMenu">Items</button>
+        <button class="search-menu-button" type="button" [matMenuTriggerFor]="gearMenu">Gear</button>
+        <button class="search-menu-button" type="button" [matMenuTriggerFor]="furnishingMenu">Furnishing</button>
+        <button class="search-menu-button" type="button" (click)="getCategory('Achievement')">Achievements</button>
+        <button class="search-menu-button" type="button" (click)="getCategory('Title')">Titles</button>
+        <button class="search-menu-button" type="button" (click)="getCategory('Mount')">Mounts</button>
+        <button class="search-menu-button" type="button" (click)="getCategory('Companion')">Minions</button>
+        <button class="search-menu-button" type="button" [matMenuTriggerFor]="actionMenu">Actions</button>
+
+        <!-- Item Type Menu -->
+        <mat-menu class="search-menu-front" #itemMenu>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(57)">Materia</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(54)">Dyes</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(90)">Bardings</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(43)">Potions</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(44)">Ingredients</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(45)">Meals</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(46)">Fish</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(47)">Mineral Ore</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(48)">Ingots</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(49)">Lumber</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(50)">Cloth</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(51)">Leathers</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(52)">Bones</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(53)">Reagents</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(59)">Catalysts</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(58)">Crystals</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(74)">Seasonal Items</button>
+        </mat-menu>
+ 
+        <mat-menu class="search-menu-front" #furnishingMenu>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(56)">Interior Furnishing</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(67)">Outdoor Furnishing</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(68)">Chairs and Beds</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(69)">Tables</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(70)">Tabletop</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(71)">Wall-mounted</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(72)">Rugs</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(82)">Paintings</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(66)">Interior Fixtures</button>
+            <button class="search-menu-button" type="button" (click)="getItemCategory(65)">Exterior Fixtures</button>
+        </mat-menu>
+        <!-- Action Menu -->
+        <mat-menu class="search-menu-front" #actionMenu>
+            <button mat-menu-item (click)="getActions('pld')">Paladin</button>
+            <button mat-menu-item (click)="getActions('war')">Warrior</button>
+            <button mat-menu-item (click)="getActions('drk')">Dark Knight</button>
+            <button mat-menu-item (click)="getActions('gnb')">Gunbreaker</button>
+            <button mat-menu-item (click)="getActions('whm')">White Mage</button>
+            <button mat-menu-item (click)="getActions('sch')">Scholar</button>
+            <button mat-menu-item (click)="getActions('ast')">Astrologian</button>
+            <button mat-menu-item (click)="getActions('sge')">Sage</button>
+            <button mat-menu-item (click)="getActions('mnk')">Monk</button>
+            <button mat-menu-item (click)="getActions('drg')">Dragoon</button>
+            <button mat-menu-item (click)="getActions('nin')">Ninja</button>
+            <button mat-menu-item (click)="getActions('sam')">Samurai</button>
+            <button mat-menu-item (click)="getActions('rpr')">Reaper</button>
+            <button mat-menu-item (click)="getActions('brd')">Bard</button>
+            <button mat-menu-item (click)="getActions('mch')">Machinist</button>
+            <button mat-menu-item (click)="getActions('dnc')">Dancer</button>
+            <button mat-menu-item (click)="getActions('blm')">Black Mage</button>
+            <button mat-menu-item (click)="getActions('smn')">Summoner</button>
+            <button mat-menu-item (click)="getActions('rdm')">Red Mage</button>
+            <button mat-menu-item (click)="getActions('blu')">Blue Mage</button>
+        </mat-menu>
+
+        <!-- Gear Menu -->
+        <mat-menu class="search-menu-front" #gearMenu>
+            <menu class="search-menu-front-option" mat-menu-item [matMenuTriggerFor]="weapons">Weapon</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(17)">Shield & Off-Hand</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(31)">Head</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(33)">Body</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(36)">Hands</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(35)">Legs</menu>
+            <menu class="search-menu-front-option" mat-menu-item (click)="getItemCategory(37)">Feet</menu>
+            <button class="search-menu-front-option" mat-menu-item [matMenuTriggerFor]="accessories">Accessories</button>
+            <button class="search-menu-front-option" mat-menu-item [matMenuTriggerFor]="crafting">Crafting Tools</button>
+        </mat-menu>
+
+        <!-- Weapon Submenu -->
+        <mat-menu #weapons="matMenu">
+            <button mat-menu-item (click)="getItemCategory(10)">Paladin</button>
+            <button mat-menu-item (click)="getItemCategory(11)">Warrior</button>
+            <button mat-menu-item (click)="getItemCategory(76)">Dark Knight</button>
+            <button mat-menu-item (click)="getItemCategory(86)">Gunbreaker</button>
+            <button mat-menu-item (click)="getItemCategory(15)">White Mage</button>
+            <button mat-menu-item (click)="getItemCategory(85)">Scholar</button>
+            <button mat-menu-item (click)="getItemCategory(78)">Astrologian</button>
+            <button mat-menu-item (click)="getItemCategory(89)">Sage</button>
+            <button mat-menu-item (click)="getItemCategory(9)">Monk</button>
+            <button mat-menu-item (click)="getItemCategory(13)">Dragoon</button>
+            <button mat-menu-item (click)="getItemCategory(73)">Ninja</button>
+            <button mat-menu-item (click)="getItemCategory(83)">Samurai</button>
+            <button mat-menu-item (click)="getItemCategory(88)">Reaper</button>
+            <button mat-menu-item (click)="getItemCategory(12)">Bard</button>
+            <button mat-menu-item (click)="getItemCategory(77)">Machinist</button>
+            <button mat-menu-item (click)="getItemCategory(87)">Dancer</button>
+            <button mat-menu-item (click)="getItemCategory(14)">Black Mage</button>
+            <button mat-menu-item (click)="getItemCategory(16)">Summoner</button>
+            <button mat-menu-item (click)="getItemCategory(84)">Red Mage</button>
+            <button mat-menu-item (click)="getItemCategory(105)">Blue Mage</button>
+        </mat-menu>
+         <!-- Crafting Weapons Submenu -->
+         <mat-menu #crafting="matMenu">
+            <button mat-menu-item (click)="getItemCategory(19)">CRP</button>
+            <button mat-menu-item (click)="getItemCategory(20)">BSM</button>
+            <button mat-menu-item (click)="getItemCategory(21)">ARM</button>
+            <button mat-menu-item (click)="getItemCategory(22)">GSM</button>
+            <button mat-menu-item (click)="getItemCategory(23)">LTW</button>
+            <button mat-menu-item (click)="getItemCategory(24)">WVR</button>
+            <button mat-menu-item (click)="getItemCategory(25)">ALC</button>
+            <button mat-menu-item (click)="getItemCategory(26)">CUL</button>
+            <button mat-menu-item (click)="getItemCategory(27)">MIN</button>
+            <button mat-menu-item (click)="getItemCategory(28)">BTN</button>
+            <button mat-menu-item (click)="getItemCategory(29)">FSH</button>
+        </mat-menu>
+        <!-- Accessories Submenu -->
+        <mat-menu #accessories="matMenu">
+            <button mat-menu-item (click)="getItemCategory(40)">Earrings</button>
+            <button mat-menu-item (click)="getItemCategory(39)">Necklaces</button>
+            <button mat-menu-item (click)="getItemCategory(41)">Bracelets</button>
+            <button mat-menu-item (click)="getItemCategory(42)">Rings</button>
+        </mat-menu>
+    </div>
+</div>

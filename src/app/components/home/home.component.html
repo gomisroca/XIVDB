@@ -1,0 +1,22 @@
+<div class="items">
+        <ng-container *ngFor="let item of items">
+            <div class="item" (click)="openItemDetails(item.UrlType ,item.ID)">
+                <div class="item-thumb-container">
+                    <img
+                        *ngIf="item.Icon"
+                        class="item-thumbnail"
+                        src="https://xivapi.com/{{ item.Icon }}"
+                        alt="thumbnail"
+                    />
+                    <p *ngIf="!item.Icon">No image</p>
+                </div>
+                <div class="item-description">
+                    <p class="item-name">{{ item.Name }}</p>
+                </div>
+            </div>
+        </ng-container>
+</div>
+<div class="text-right bottom-menu">
+    <button mat-flat-button class="bottom-menu-button" (click)="pageChangePrevious()">Previous</button>
+    <button mat-flat-button class="bottom-menu-button" (click)="pageChangeNext()">Next</button>
+</div>
