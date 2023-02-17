@@ -1,0 +1,119 @@
+.footer{
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: #151515;
+}
+.bottom-menu{
+    width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    &-button-first{
+        margin: 5px 5px 0px 5px;
+        height: 40px;
+        width: 60px;
+        border: none;
+        outline: none;
+        background: rgb(80, 80, 80);
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        transition-duration: 0.3s;
+        cursor: pointer;
+        &:disabled{
+            transition-duration: 0s;
+            cursor: default;
+            background-color: #151515;
+            color: #151515;
+        }
+        &:hover{
+            transform: translateY(-3px);
+        }
+    }
+
+    &-button-second{
+        margin: 5px 5px 0px 5px;
+        height: 35px;
+        width: 50px;
+        border: none;
+        outline: none;
+        background: rgb(80, 80, 80);
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        transition-duration: 0.3s;
+        cursor: pointer;
+        &:disabled{
+            transition-duration: 0s;
+            cursor: default;
+            background-color: #151515;
+            color: #151515;
+        }
+        &:hover{
+            transform: translateY(-3px);
+        }
+    }
+
+    &-button-third{
+        margin: 5px 5px 0px 5px;
+        height: 30px;
+        width: 40px;
+        border: none;
+        outline: none;
+        background: rgb(80, 80, 80);
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        transition-duration: 0.3s;
+        cursor: pointer;
+        &:disabled{
+            transition-duration: 0s;
+            cursor: default;
+            background-color: #151515;
+            color: #151515;
+        }
+        &:hover{
+            transform: translateY(-3px);
+        }
+    }
+
+    &-button-fourth{
+        margin: 5px 5px 0px 5px;
+        height: 30px;
+        width: 50px;
+        border: none;
+        outline: none;
+        background: rgb(80, 80, 80);
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        transition-duration: 0.3s;
+        position: absolute;
+        cursor: pointer;
+        &:disabled{
+            transition-duration: 0s;
+            cursor: default;
+            background-color: #151515;
+            color: #151515;
+        }
+        &:hover{
+            transform: translateY(-3px);
+        }
+    }
+
+    &-text{
+        margin-left: 20px;
+        margin-right: 20px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 20px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}

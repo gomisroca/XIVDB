@@ -38,6 +38,20 @@
 
     &-information {
         color: #fff;
+        &-source{
+            margin-top: 5px;
+            &-title{
+                font-weight:500;
+                font-size:16px;
+                margin-bottom:2px;
+            }
+        }
+    }
+
+    &-version{
+        color: rgb(155, 155, 155);
+        font-size: 10px;
+        margin-bottom: 5px;
     }
 
     &-name{
@@ -45,6 +59,7 @@
         font-weight: 600;
         font-size: 18px;
         margin-bottom: 5px;
+        text-transform: capitalize;
     }
 
     &-description{
@@ -55,19 +70,66 @@
         display: flex;
         flex-direction: row;
         &-content{
-            margin-right: 10px;
+            border-right: 1px rgba(128, 128, 128, 0.25) solid;
+            padding: 0px 5px 0px 5px;
+            color: rgb(175, 175, 175);
+            &:first-child{
+                padding: 0px 5px 0px 0px;
+            }
+            &:last-child{
+                border-right: none;
+            }
+        }
+    }
+
+    &-materia{
+        display: inline-flex;
+        &-container{
+            margin-bottom: 10px;
+            width: fit-content;
+            border: 1px rgba(128, 128, 128, 0.15) solid;
+        }
+        &-icon{
+            opacity: 75%;
+        }
+        &-advanced{
+            &-text{
+                color: rgb(175, 175, 175);
+                margin-left: 10px;
+            }
+            &-icon{
+                color: rgb(175, 175, 175);
+                margin-left: 5px;
+            }
         }
     }
 
     &-stats{
         &-container{
             width: fit-content;
-            border: 1px rgba(128, 128, 128, 0.35) solid;
+            border: 1px rgba(128, 128, 128, 0.15) solid;
             background-color: #272727;
             padding: 15px;
         }
         &-content{
-            color: #fff;
+            display: flex;
+            &:last-child {
+                margin-bottom: 0px !important;
+            }
+            &-name{
+                color: #fff;
+            }
+            &-quality {
+                color: rgb(209, 209, 209);
+                margin-left: 10px;
+                font-size: 10px;
+                align-self: center;
+            }
+            &-number{
+                color: #fff;
+                margin-left: 5px;
+                font-weight: 500;
+            }
         }
     }
 }

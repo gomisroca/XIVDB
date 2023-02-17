@@ -1,5 +1,6 @@
+<app-search-bar></app-search-bar>
 <div class="container">
-    <div class="item">
+    <div *ngIf="item.Name" class="item">
         <div class="item-header-container">
             <div class="item-thumb-container">
                 <img
@@ -15,26 +16,128 @@
                 />
             </div>
             <div class="item-text-container">
+                <p *ngIf="item.GamePatch" class="item-version">{{ item.GamePatch.Name }}</p>
                 <p class="item-name">{{ item.Name }}</p>
                 <div class="item-information">
                     <div class="item-categories">
-                        <p class="item-categories-content" *ngIf="item.LevelEquip">{{item.LevelEquip}}</p>
-                        <p class="item-categories-content" *ngIf="item.LevelItem">{{item.LevelItem}}</p>
+                        <p class="item-categories-content" *ngIf="item.LevelEquip">Level {{item.LevelEquip}}</p>
+                        <p class="item-categories-content" *ngIf="item.LevelItem">Item Level {{item.LevelItem}}</p>
                         <p class="item-categories-content" *ngIf="item.ClassJobCategory">{{item.ClassJobCategory.Name}}</p>
+                        <p class="item-categories-content" *ngIf="item.ClassJobRepair">🛠 {{item.ClassJobRepair.Abbreviation}}</p>
+                        <p class="item-categories-content" *ngIf="item.IsGlamourous">✔ Glamour</p>
+                        <p class="item-categories-content" *ngIf="item.IsDyeable">✔ Dye</p>
                         <p class="item-categories-content" *ngIf="item.AchievementCategory">{{item.AchievementCategory.Name}}</p>
                     </div>
                     <p class="item-description" *ngIf="item.Description">{{item.Description}}</p>
                 </div>
                 <div class="item-stats-container" *ngIf="item.Stats">
-                    <p class="item-stats-content" *ngIf="item.Stats.Vitality">Vitality +{{item.Stats.Vitality.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Strength">Strength +{{item.Stats.Strength.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Dexterity">Dexterity +{{item.Stats.Dexterity.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Intelligence">Intelligence +{{item.Stats.Intelligence.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Mind">Mind +{{item.Stats.Mind.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.CriticalHit">Critical Hit +{{item.Stats.CriticalHit.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.DirectHitRate">Direct Hit Rate +{{item.Stats.DirectHitRate.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Determination">Determination +{{item.Stats.Determination.NQ}}</p>
-                    <p class="item-stats-content" *ngIf="item.Stats.Tenacity">Tenacity +{{item.Stats.Tenacity.NQ}}</p>
+                    <div class="item-materia">
+                        <div class="item-materia-container" *ngIf="item.MateriaSlotCount">
+                            <span class="item-materia-icon" *ngFor="let materia of materia; let i = index;">🔘</span>
+                        </div>
+                        <div>
+                            <span class="item-materia-advanced-text">Advanced Melding</span>
+                            <span class="item-materia-advanced-icon" *ngIf="item.IsAdvancedMeldingPermitted">✔</span>
+                            <span class="item-materia-advanced-icon" *ngIf="!item.IsAdvancedMeldingPermitted">✖</span>
+                        </div>
+                    </div>
+                    <p class="item-stats-content" *ngIf="item.Stats.Vitality">
+                        <span class="item-stats-content-name">Vitality</span>
+                        <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Vitality.NQ}}</span>
+                        <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-number">+{{item.Stats.Vitality.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Strength">
+                        <span class="item-stats-content-name">Strength</span>
+                        <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Strength.NQ}}</span>
+                        <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-number">+{{item.Stats.Strength.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Dexterity">
+                        <span class="item-stats-content-name">Dexterity</span>
+                        <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Dexterity.NQ}}</span>
+                        <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-number">+{{item.Stats.Dexterity.HQ}}</span>
+                        
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Intelligence">
+                        <span class="item-stats-content-name">Intelligence</span>
+                        <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Intelligence.NQ}}</span>
+                        <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-number">+{{item.Stats.Intelligence.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Mind">
+                        <span class="item-stats-content-name">Mind</span>
+                        <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Mind.NQ}}</span>
+                        <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-number">+{{item.Stats.Mind.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.CriticalHit">
+                        <span class="item-stats-content-name">Critical Hit</span>
+                        <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.CriticalHit.NQ}}</span>
+                        <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-number">+{{item.Stats.CriticalHit.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.DirectHitRate">
+                        <span class="item-stats-content-name">Direct Hit Rate</span>
+                        <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.DirectHitRate.NQ}}</span>
+                        <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-number">+{{item.Stats.DirectHitRate.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Determination">
+                        <span class="item-stats-content-name">Determination</span>
+                        <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Determination.NQ}}</span>
+                        <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-number">+{{item.Stats.Determination.HQ}}</span>
+                    </p>
+                    <p class="item-stats-content" *ngIf="item.Stats.Tenacity">
+                        <span class="item-stats-content-name">Tenacity</span>
+                        <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-quality">NQ</span>
+                        <span class="item-stats-content-number">+{{item.Stats.Tenacity.NQ}}</span>
+                        <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-quality">HQ</span>
+                        <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-number">+{{item.Stats.Tenacity.HQ}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="item.name" class="item">
+        <div class="item-header-container">
+            <div class="item-thumb-container">
+                <img
+                    *ngIf="item.image"
+                    class="item-thumbnail"
+                    src="{{item.image}}"
+                    alt="thumbnail"
+                />
+            </div>
+            <div class="item-text-container">
+                <p class="item-name">{{ item.name }}</p>
+                <div class="item-categories">
+                    <p class="item-categories-content" *ngIf="item.patch">Patch {{ item.patch }}</p>
+                    <p class="item-categories-content" *ngIf="item.owned">{{item.owned}} Owned</p>
+                </div>
+                <div class="item-information">
+                    <p class="item-description" *ngIf="item.description">{{item.description}}</p>
+                    <p class="item-description" *ngIf="item.enhanced_description">{{item.enhanced_description}}</p>
+                    <div class="item-information-source" *ngIf="item.sources">
+                        <p class="item-information-source-title">Source</p>
+                        <p class="item-description" *ngFor="let source of item.sources">{{ source.text }}</p>
+                    </div>
+                    <div class="item-information-source" *ngIf="item.bgm">
+                        <p class="item-information-source-title">Background Music</p>
+                        <audio controls>
+                            <source src="{{item.bgm}}" type="audio/ogg">
+                        </audio>
+                    </div>
                 </div>
             </div>
         </div>

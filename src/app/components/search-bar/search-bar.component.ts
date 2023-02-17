@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Item, SearchCategory } from 'src/app/models';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -79,12 +80,18 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private router: Router,
-  ) { }
+    private httpService : HttpService
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+   }
 
   ngOnInit(): void {
   }
   
   onSubmit(form: NgForm) {
+    this.httpService.p = 1;
     if(form.value.category &&  form.value.search){
       this.router.navigate(['s', form.value.category, form.value.search])
     } else if (form.value.category) {
@@ -95,14 +102,17 @@ export class SearchBarComponent implements OnInit {
   }
 
   getCategory(category: string) {
+    this.httpService.p = 1;
     this.router.navigate(['c', category]);
   }
 
   getItemCategory(category?: number) {
+    this.httpService.p = 1;
     this.router.navigate(['g', category])
   }
 
   getActions(jobName: string){
+    this.httpService.p = 1;
     this.router.navigate(['j', jobName, 'actions'])
   }
 

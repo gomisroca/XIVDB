@@ -1,0 +1,31 @@
+<div class="search-container">
+    <form class="search-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <span class="logo" routerLink="/">FFXIV DB</span>
+        <input
+            class="search-input"
+            name="search"
+            ngModel
+            placeholder="Search for FCs and Characters"
+        />
+        
+        <mat-select 
+        class="search-select" 
+        name="server" 
+        placeholder="Server"
+        ngModel>
+            <mat-option class="search-select-option" *ngFor="let server of servers" [value]="server">{{server}}</mat-option>
+        </mat-select>
+        <mat-select 
+            class="search-select" 
+            name="category" 
+            placeholder="Category*"
+            ngModel
+            required
+        >
+            <mat-option class="search-select-option" value="fc">FC</mat-option>
+            <mat-option class="search-select-option" value="char">Character</mat-option>
+        </mat-select>
+        <button class="search-button">Search</button>
+    </form>
+    <app-mode-switch></app-mode-switch>
+</div>

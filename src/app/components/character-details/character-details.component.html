@@ -1,1 +1,181 @@
-<p>character-details works!</p>
+<app-character-search></app-character-search>
+<div class="container">
+    <div class="item">
+        <div class="item-header-container">
+            <div class="item-thumb-container">
+                <img
+                    (click)="hideItemDetails()"
+                    *ngIf="character.Character.Portrait"
+                    class="item-thumbnail"
+                    src="{{ character.Character.Portrait }}"
+                    alt="thumbnail"
+                />
+                <div class="item-gear-container">
+                    <p>{{ character.Character.ActiveClassJob.Job.Abbreviation }}</p>
+                    <div class="item-gear-container">
+                      <div class="item-gear-container-left">
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.MainHand.Item.ID)" class="gear-expansion-panel top" matTooltip="{{ character.Character.GearSet.Gear.MainHand.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.MainHand.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Head.Item.ID)" class="gear-expansion-panel top" matTooltip="{{ character.Character.GearSet.Gear.Head.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Head.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Body.Item.ID)" class="gear-expansion-panel top" matTooltip="{{ character.Character.GearSet.Gear.Body.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Body.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Hands.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Hands.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Hands.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Legs.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Legs.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Legs.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Feet.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Feet.Item.Name }}" matTooltipPosition="after" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Feet.Item.Icon }}" />
+                          </button>
+                      </div>
+                      <div *ngIf="showDetails" class="details-container">
+                        <div class="details-general">
+                          <div class="details-image-container">
+                            <img class="details-image-content" src="http://xivapi.com{{item.IconHD}}" />
+                            <div class="details-name-container">
+                              <p class="details-name-content">{{ item.Name }}</p>
+                            </div>
+                          </div>
+                          <div class="details-info-container">
+                            <div class="details-categories-container">
+                              <div class="details-categories-content" *ngIf="item.LevelEquip">
+                                <p>Level</p>
+                                <p>{{item.LevelEquip}}</p>
+                              </div>
+                              <div class="details-categories-content" *ngIf="item.LevelItem">
+                                <p>Item Level</p>
+                                <p>{{item.LevelItem}}</p>
+                              </div>
+                            </div>
+                            <div class="details-categories-container">
+                              <p class="details-categories-content" *ngIf="item.ClassJobCategory">{{item.ClassJobCategory.Name}}</p>
+                              <p class="details-categories-content" *ngIf="item.ClassJobRepair">🛠 {{item.ClassJobRepair.Abbreviation}}</p>
+                              <p class="details-categories-content" *ngIf="item.IsGlamourous">✔ Glamour</p>
+                              <p class="details-categories-content" *ngIf="item.IsDyeable">✔ Dye</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="details-stats-container" *ngIf="item.Stats">
+                            <div class="item-materia">
+                                <div class="item-materia-container" *ngIf="item.MateriaSlotCount">
+                                    <span class="item-materia-icon" *ngFor="let materia of materia; let i = index;">🔘</span>
+                                </div>
+                            </div>
+                            <p class="details-stats-content" *ngIf="item.Stats.Vitality">
+                                <span class="item-stats-content-name">Vitality</span>
+                                <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Vitality.NQ}}</span>
+                                <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Vitality.HQ" class="item-stats-content-number">+{{item.Stats.Vitality.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Strength">
+                                <span class="item-stats-content-name">Strength</span>
+                                <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Strength.NQ}}</span>
+                                <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Strength.HQ" class="item-stats-content-number">+{{item.Stats.Strength.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Dexterity">
+                                <span class="item-stats-content-name">Dexterity</span>
+                                <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Dexterity.NQ}}</span>
+                                <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Dexterity.HQ" class="item-stats-content-number">+{{item.Stats.Dexterity.HQ}}</span>
+                                
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Intelligence">
+                                <span class="item-stats-content-name">Intelligence</span>
+                                <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Intelligence.NQ}}</span>
+                                <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Intelligence.HQ" class="item-stats-content-number">+{{item.Stats.Intelligence.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Mind">
+                                <span class="item-stats-content-name">Mind</span>
+                                <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Mind.NQ}}</span>
+                                <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Mind.HQ" class="item-stats-content-number">+{{item.Stats.Mind.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.CriticalHit">
+                                <span class="item-stats-content-name">Critical Hit</span>
+                                <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.CriticalHit.NQ}}</span>
+                                <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.CriticalHit.HQ" class="item-stats-content-number">+{{item.Stats.CriticalHit.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.DirectHitRate">
+                                <span class="item-stats-content-name">Direct Hit Rate</span>
+                                <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.DirectHitRate.NQ}}</span>
+                                <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.DirectHitRate.HQ" class="item-stats-content-number">+{{item.Stats.DirectHitRate.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Determination">
+                                <span class="item-stats-content-name">Determination</span>
+                                <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Determination.NQ}}</span>
+                                <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Determination.HQ" class="item-stats-content-number">+{{item.Stats.Determination.HQ}}</span>
+                            </p>
+                            <p class="details-stats-content" *ngIf="item.Stats.Tenacity">
+                                <span class="item-stats-content-name">Tenacity</span>
+                                <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-quality">NQ</span>
+                                <span class="item-stats-content-number">+{{item.Stats.Tenacity.NQ}}</span>
+                                <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-quality">HQ</span>
+                                <span *ngIf="item.Stats.Tenacity.HQ" class="item-stats-content-number">+{{item.Stats.Tenacity.HQ}}</span>
+                            </p>
+                        </div>
+                      </div>
+                      <div class="item-gear-container-right">
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.OffHand.Item.ID)" class="gear-expansion-panel top" *ngIf="character.Character.GearSet.Gear.OffHand" matTooltip="{{ character.Character.GearSet.Gear.OffHand.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.OffHand.Item.Icon }}" />
+                          </button>
+                          <button class="gear-expansion-panel top" *ngIf="!character.Character.GearSet.Gear.OffHand" matTooltip="No Off-Hand" matTooltipPosition="before" hideToggle>
+                            <img style="filter: brightness(0.5)" class="gear-expansion-img" src="https://xivapi.com/i/000000/000787_hr1.png" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Earrings.Item.ID)" class="gear-expansion-panel top" matTooltip="{{ character.Character.GearSet.Gear.Earrings.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Earrings.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Necklace.Item.ID)" class="gear-expansion-panel top" matTooltip="{{ character.Character.GearSet.Gear.Necklace.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Necklace.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Bracelets.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Bracelets.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Bracelets.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Ring1.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Ring1.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Ring1.Item.Icon }}" />
+                          </button>
+                          <button (click)="openItemDetails(character.Character.GearSet.Gear.Ring2.Item.ID)" class="gear-expansion-panel bottom" matTooltip="{{ character.Character.GearSet.Gear.Ring2.Item.Name }}" matTooltipPosition="before" hideToggle>
+                            <img class="gear-expansion-img" src="https://xivapi.com{{ character.Character.GearSet.Gear.Ring2.Item.Icon }}" />
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="item-text-container">
+                <p class="item-version">{{ character.Character.ID }} - {{ character.Character.Race.Name }}  - {{ character.Character.Nameday }}</p>
+                <p class="item-name">{{ character.Character.Name }} {{ character.Character.Title.Name }} </p>
+                <div class="item-information">
+                    <div class="item-categories">
+                        <p class="item-categories-content">{{ character.Character.Server }} - {{ character.Character.DC }}</p>
+                        <p class="item-categories-content">{{ character.Character.FreeCompanyName }}</p>
+                        <p class="item-categories-content">{{ character.Character.GrandCompany.Company.Name }}</p>
+                </div>
+                <mat-grid-list  
+                cols="4" 
+                rowHeight="30px"
+                class="item-job-container">
+                    <mat-grid-tile class="item-job-content" *ngFor="let job of character.Character.ClassJobs">
+                        {{ job.Job.Abbreviation }} {{ job.Level }}
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+    </div>
+</div>

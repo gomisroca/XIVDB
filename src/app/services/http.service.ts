@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
-import { XIVAPIResponse, Item, ItemDetails } from '../models';
+import { XIVAPIResponse, Item, ItemDetails, FC, Character, CharacterInfo, FCInfo } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +33,15 @@ export class HttpService {
   }
 
   getItemDetails(id: string, category?: string): Observable<ItemDetails> {
-    if(category){
-      return this.http.get<ItemDetails>(`${env.XIVAPI}/${category}/${id}`)
-    }else{
+    if (category == 'Mount'){
+      return this.http.get<ItemDetails>(`${env.COLLECT}/mounts/${id}`)
+    } else if(category == 'Companion'){
+      return this.http.get<ItemDetails>(`${env.COLLECT}/minions/${id}`)
+    } else if(category == 'Achievement'){
+      return this.http.get<ItemDetails>(`${env.COLLECT}/achievements/${id}`)
+    } else if(category){
+      return this.http.get<ItemDetails>(`${env.XIVAPI}/${category}/${id}`);
+    } else{
       return this.http.get<ItemDetails>(`${env.XIVAPI}/item/${id}`)
     }
   }
@@ -133,14 +139,81 @@ export class HttpService {
     });
   }
 
-  pagination(direction: string): void {
+  getFC(name?: string, server?: string){
+    let params = new HttpParams();
+    if (name && server){
+      params = new HttpParams().set('name', `${name}`).set('server', `${server}`).set('page', this.p);
+    } else if (name){
+      params = new HttpParams().set('name', `${name}`).set('page', this.p);
+    } else if (server) {
+      params = new HttpParams().set('server', `${server}`).set('page', this.p);
+    } else {
+      params = new HttpParams().set('name', 'SleepingDragons').set('server', 'Phoenix').set('page', this.p);
+    }
+
+    return this.http.get<XIVAPIResponse<FC>>(`${env.XIVAPI}/freecompany/search`, {
+      params: params,
+    });
+  }
+
+  getCharacter(name?: string, server?: string){
+    let params = new HttpParams();
+    if (name && server){
+      params = new HttpParams().set('name', `${name}`).set('server', `${server}`).set('page', this.p);
+    } else if (name){
+      params = new HttpParams().set('name', `${name}`).set('page', this.p);
+    } else if (server){
+      params = new HttpParams().set('server', `${server}`).set('page', this.p);
+    } else {
+      params = new HttpParams().set('name', 'Jasar').set('server', 'Phoenix').set('page', this.p);
+    }
+
+    return this.http.get<XIVAPIResponse<Character>>(`${env.XIVAPI}/character/search`, {
+      params: params,
+    }); 
+  }
+
+  getCharDetails(id: number){
+    let params = new HttpParams();
+   
+    params = new HttpParams().set('data', 'AC,FR,FC,MIMO,PVP').set('extended', '1');
+
+    return this.http.get<CharacterInfo>(`${env.XIVAPI}/character/${id}`, {
+      params: params,
+    }); 
+  }
+
+  getFCDetails(id: number){
+    let params = new HttpParams();
+   
+    params = new HttpParams().set('data', 'FCM').set('extended', '1');
+
+    return this.http.get<FCInfo>(`${env.XIVAPI}/freecompany/${id}`, {
+      params: params,
+    }); 
+  }
+
+  getServers(){
+    return this.http.get<Array<string>>(`${env.XIVAPI}/servers`);
+  }
+  
+  pagination(direction?: string, lastPage?: number, count?: number): void {
     if (direction == 'up'){
       this.p = this.p + 1;
       console.log(this.p);
     }
      else if (direction == 'down'){
       this.p = this.p - 1;
+      if(this.p < 1){
+        this.p = 1;
+      }
       console.log(this.p);
+    } else if (lastPage){
+      this.p = lastPage;
+    } else if (count){
+      this.p = this.p + count;
+    } else {
+      this.p = 1;
     }
   }
 

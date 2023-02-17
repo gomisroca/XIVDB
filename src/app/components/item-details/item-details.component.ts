@@ -15,6 +15,7 @@ export class ItemDetailsComponent implements OnInit {
   itemCategory!: string;
   routeSub!: Subscription;
   itemSub!: Subscription;
+  materia !: any;
 
   constructor(
     private ActivatedRoute: ActivatedRoute,
@@ -33,6 +34,7 @@ export class ItemDetailsComponent implements OnInit {
     this.itemSub = this.httpService
       .getItemDetails(id, category).subscribe((itemResp: ItemDetails) => {
         this.item = itemResp;
+        this.materia = Array.from(Array(this.item.MateriaSlotCount).keys());
         console.log(itemResp);
       })
   }

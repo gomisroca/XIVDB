@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { XIVAPIResponse, Item, Pagination } from 'src/app/models';
@@ -10,17 +9,17 @@ import { HttpService } from 'src/app/services/http.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnChanges,OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   public items!: Array<Item>;
-  public pagination!: Array<Pagination>;
+  public pagination!: Pagination;
   private routeSub!: Subscription;
   private itemSub!: Subscription;
   private categorySub!: Subscription;
   private itemCategorySub!: Subscription;
   private actionSub!: Subscription;
-  
+
   constructor(
-    private httpService: HttpService,
+    public httpService: HttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -47,18 +46,6 @@ export class HomeComponent implements OnInit, OnChanges,OnDestroy {
         }
       });
     }
-  }
-
-  ngOnChanges(page: SimpleChanges): void {
-
-  }
-
-  pageChangePrevious(){
-    this.httpService.pagination('down');
-  }
-
-  pageChangeNext(){
-    this.httpService.pagination('up');
   }
 
   searchItems(search?: string, category?: string): void {
@@ -102,7 +89,7 @@ export class HomeComponent implements OnInit, OnChanges,OnDestroy {
   }
 
   openItemDetails(category: string, id: number): void {
-    this.router.navigate(['c', category, 'i', id]);
+    this.router.navigate(['c', category, id]);
   }
 
   ngOnDestroy(): void {

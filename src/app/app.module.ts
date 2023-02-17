@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list'; 
 import { MatMenuModule } from '@angular/material/menu'; 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTooltipModule } from '@angular/material/tooltip'; 
+import {MatExpansionModule} from '@angular/material/expansion';
 
 // Interceptors
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptors';
@@ -24,6 +26,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
 import { CharacterDetailsComponent } from './components/character-details/character-details.component';
 import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.component';
+import { CharactersHomeComponent } from './components/characters-home/characters-home.component';
+import { CharacterSearchComponent } from './components/character-search/character-search.component';
+import { ModeSwitchComponent } from './components/mode-switch/mode-switch.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,9 @@ import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.compon
     ItemDetailsComponent,
     CharacterDetailsComponent,
     BottomMenuComponent,
+    CharactersHomeComponent,
+    CharacterSearchComponent,
+    ModeSwitchComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +54,9 @@ import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.compon
     MatFormFieldModule,
     MatSelectModule,
     MatGridListModule,
+    MatTooltipModule,
     MatMenuModule,
+    MatExpansionModule,
     NgxPaginationModule
   ],
   providers: [
